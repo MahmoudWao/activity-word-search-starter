@@ -1,13 +1,20 @@
 # Word Search
 
-A simple browser-based word search tool. Type a word into the search box and click **Search** to highlight matching words in the displayed passage.
+A word search tool that searches for a term in a passage about fixed vs. growth mindsets and reports whether a match was found, how many times it appears, and highlights the matches.
 
-## Launch the App
-
-Open `index.html` directly in your browser, or serve it locally:
+## Launch the Python App
 
 ```sh
-python3 -m http.server 8000
+cd ~/activity-word-search-starter-master
+python3 app.py
 ```
 
-Then visit [http://localhost:8000](http://localhost:8000).
+The app will display the passage and prompt you to type a search term. Type `quit` to exit.
+
+## Launch the Browser Version
+
+Open `index.html` directly in your browser:
+
+```sh
+open index.html
+```
