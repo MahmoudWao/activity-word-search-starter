@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wellness Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="app-title">Wellness Tracker</h1>
+            <p class="app-subtitle">Track your wellness across 5 key dimensions</p>
+        </header>
+
+        <!-- Tab Navigation -->
+        <nav class="tabs">
+            <button class="tab-button active" data-tab="daily-log">Daily Log</button>
+            <button class="tab-button" data-tab="weekly-summary">Weekly Summary</button>
+            <button class="tab-button" data-tab="instructions">Instructions</button>
+        </nav>
+
+        <!-- Tab Content -->
+        <main class="tab-content-container">
+            <!-- Daily Log Tab -->
+            <div id="daily-log" class="tab-content active">
+                <h2>Daily Log</h2>
+                <p class="tab-subtitle">Track your daily wellness (60 days ~2 months)</p>
+
+                <!-- Entry Form -->
+                <div class="entry-form">
+                    <h3>Add New Entry</h3>
+                    <form id="daily-form">
+                        <div class="form-group">
+                            <label for="date">Date:</label>
+                            <input type="date" id="date" name="date" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="week-type">Week Type:</label>
+                            <select id="week-type" name="week_type" required>
+                                <option value="36h">36 hours</option>
+                                <option value="48h">48 hours</option>
+                            </select>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="mental">Mental Resilience (1-10):</label>
+                                <input type="number" id="mental" name="mental_resilience" min="1" max="10" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="physical">Physical Energy (1-10):</label>
+                                <input type="number" id="physical" name="physical_energy" min="1" max="10" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="emotional">Emotional Balance (1-10):</label>
+                                <input type="number" id="emotional" name="emotional_balance" min="1" max="10" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="stress">Low Stress (1-10, 10=calm):</label>
+                                <input type="number" id="stress" name="stress_level" min="1" max="10" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="productivity">Productivity (1-10):</label>
+                            <input type="number" id="productivity" name="productivity" min="1" max="10" required>
+                        </div>
+
+                        <button type="submit" class="btn-primary">Save Entry</button>
+                    </form>
+                </div>
+
+                <!-- Daily Entries Table -->
+                <div class="table-scroll">
+                    <table id="daily-table" class="daily-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Week Type</th>
+                                <th class="score-col">Mental</th>
+                                <th class="score-col">Physical</th>
+                                <th class="score-col">Emotional</th>
+                                <th class="score-col">Stress</th>
+                                <th class="score-col">Productivity</th>
+                                <th>Avg Mental</th>
+                                <th>Avg Physical</th>
+                                <th>Avg Emotional</th>
+                                <th>Avg Stress</th>
+                                <th>Avg Productivity</th>
+                            </tr>
+                        </thead>
+                        <tbody id="daily-tbody">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Weekly Summary Tab -->
+            <div id="weekly-summary" class="tab-content">
+                <h2>Weekly Summary</h2>
+                <p class="tab-subtitle">Your wellness shape - bigger pentagon = better week</p>
+
+                <div class="weekly-controls">
+                    <label for="week-selector">Select Week:</label>
+                    <select id="week-selector">
+                        <!-- Populated by JavaScript -->
+                    </select>
+                </div>
+
+                <div class="chart-container">
+                    <canvas id="radarChart"></canvas>
+                </div>
+
+                <div id="weekly-stats" class="weekly-stats">
+                    <!-- Stats displayed here -->
+                </div>
+            </div>
+
+            <!-- Instructions Tab -->
+            <div id="instructions" class="tab-content">
+                <h2>Instructions & Scoring Rubric</h2>
+
+                <section class="instruction-section">
+                    <h3>How to Use This Tracker</h3>
+                    <ol>
+                        <li><strong>Daily Log:</strong> Each day, enter your date, week type, and rate yourself 1-10 on 5 dimensions. Colors change automatically (red → amber → green).</li>
+                        <li><strong>Weekly Summary:</strong> On Sundays, your weekly averages calculate automatically and appear as a pentagon radar chart showing your "wellness shape."</li>
+                        <li><strong>Track Patterns:</strong> Use the chart to spot trends. A lopsided pentagon (e.g., high focus but low motivation) highlights imbalances.</li>
+                    </ol>
+                </section>
+
+                <section class="instruction-section">
+                    <h3>Scoring Rubric</h3>
+                    <table class="rubric-table">
+                        <thead>
+                            <tr>
+                                <th>Attribute</th>
+                                <th>Low (1-3)</th>
+                                <th>Medium (4-6)</th>
+                                <th>High (7-10)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Mental Resilience</strong></td>
+                                <td>Overwhelmed, unfocused, struggling with decisions</td>
+                                <td>Managing okay, some mental fatigue</td>
+                                <td>Sharp, clear-headed, handling challenges well</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Physical Energy</strong></td>
+                                <td>Exhausted, low stamina, sluggish</td>
+                                <td>Average energy, getting by</td>
+                                <td>Energetic, well-rested, good stamina</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Emotional Balance</strong></td>
+                                <td>Irritable, anxious, emotionally volatile</td>
+                                <td>Stable but some mood fluctuations</td>
+                                <td>Calm, content, emotionally regulated</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Low Stress</strong></td>
+                                <td>Chaotic, high pressure, reactive (1=chaos)</td>
+                                <td>Moderate stress, manageable</td>
+                                <td>Calm, in control, proactive (10=calm)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Productivity</strong></td>
+                                <td>Procrastinating, blocked, unproductive</td>
+                                <td>Making progress, some friction</td>
+                                <td>Focused, efficient, shipping</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <section class="instruction-section">
+                    <h3>Special Notes</h3>
+                    <p><strong>Low Stress is Inverted:</strong> Unlike the other 4 dimensions, Low Stress reads backwards. 10 = calm day (good), 1 = chaos day (bad). This ensures all 5 scores point in the same direction on the radar chart—bigger pentagon = better week.</p>
+                    <p><strong>Motivation as Career Signal:</strong> Your Productivity scores can serve as your career signal. Track them over months to identify when you're in flow vs. hitting burnout.</p>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/daily_log.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/weekly_chart.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,495 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #2a2a2a;
+    --bg-tertiary: #3a3a3a;
+    --text-primary: #e0e0e0;
+    --text-secondary: #b0b0b0;
+    --accent: #00d4ff;
+    --accent-hover: #00b8d4;
+    --border: #404040;
+    --success: #44FF44;
+    --warning: #FFB444;
+    --danger: #FF4444;
+    --spacing: 16px;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: var(--spacing);
+}
+
+/* Header */
+.header {
+    text-align: center;
+    padding: 30px var(--spacing);
+    margin-bottom: 30px;
+    border-bottom: 2px solid var(--border);
+}
+
+.app-title {
+    font-size: 2.5em;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 10px;
+}
+
+.app-subtitle {
+    font-size: 1.1em;
+    color: var(--text-secondary);
+}
+
+/* Tabs Navigation */
+.tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+    border-bottom: 2px solid var(--border);
+    flex-wrap: wrap;
+}
+
+.tab-button {
+    padding: 12px 24px;
+    background-color: transparent;
+    color: var(--text-secondary);
+    border: none;
+    cursor: pointer;
+    font-size: 1em;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.tab-button:hover {
+    color: var(--accent);
+}
+
+.tab-button.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+}
+
+/* Tab Content */
+.tab-content-container {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.tab-content {
+    display: none;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.tab-content h2 {
+    font-size: 2em;
+    margin-bottom: 10px;
+    color: var(--accent);
+}
+
+.tab-subtitle {
+    color: var(--text-secondary);
+    margin-bottom: 25px;
+    font-size: 1.05em;
+}
+
+/* Entry Form */
+.entry-form {
+    background-color: var(--bg-secondary);
+    padding: 25px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    border: 1px solid var(--border);
+}
+
+.entry-form h3 {
+    font-size: 1.3em;
+    margin-bottom: 20px;
+    color: var(--accent);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+}
+
+label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+    font-size: 0.95em;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="number"],
+select {
+    padding: 10px 12px;
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-size: 1em;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+input[type="number"]:focus,
+select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 5px rgba(0, 212, 255, 0.3);
+}
+
+/* Buttons */
+.btn-primary {
+    padding: 12px 24px;
+    background-color: var(--accent);
+    color: var(--bg-primary);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+    align-self: flex-start;
+}
+
+.btn-primary:hover {
+    background-color: var(--accent-hover);
+}
+
+.btn-primary:active {
+    transform: scale(0.98);
+}
+
+/* Table Styles */
+.table-scroll {
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.daily-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--bg-secondary);
+}
+
+.daily-table thead {
+    background-color: var(--bg-tertiary);
+    sticky;
+    top: 0;
+}
+
+.daily-table th {
+    padding: 12px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--accent);
+    border-bottom: 2px solid var(--border);
+    white-space: nowrap;
+}
+
+.daily-table td {
+    padding: 12px;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+}
+
+.daily-table tbody tr:hover {
+    background-color: var(--bg-tertiary);
+}
+
+.score-col {
+    text-align: center;
+}
+
+.heatmap-cell {
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-weight: 600;
+    text-align: center;
+    color: #000;
+}
+
+.heatmap-cell.red {
+    background-color: var(--danger);
+}
+
+.heatmap-cell.amber {
+    background-color: var(--warning);
+}
+
+.heatmap-cell.green {
+    background-color: var(--success);
+}
+
+/* Weekly Summary */
+.weekly-controls {
+    background-color: var(--bg-secondary);
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.weekly-controls label {
+    margin-bottom: 0;
+}
+
+.weekly-controls select {
+    min-width: 300px;
+}
+
+.chart-container {
+    background-color: var(--bg-secondary);
+    padding: 30px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+}
+
+#radarChart {
+    max-width: 500px;
+    max-height: 500px;
+}
+
+.weekly-stats {
+    background-color: var(--bg-secondary);
+    padding: 25px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+}
+
+.stat-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.stat-item {
+    background-color: var(--bg-tertiary);
+    padding: 15px;
+    border-radius: 4px;
+    border-left: 4px solid var(--accent);
+}
+
+.stat-label {
+    color: var(--text-secondary);
+    font-size: 0.9em;
+    margin-bottom: 5px;
+}
+
+.stat-value {
+    font-size: 1.5em;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+/* Instructions */
+.instruction-section {
+    background-color: var(--bg-secondary);
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+}
+
+.instruction-section h3 {
+    color: var(--accent);
+    margin-bottom: 15px;
+    font-size: 1.3em;
+}
+
+.instruction-section ol,
+.instruction-section ul {
+    margin-left: 20px;
+    color: var(--text-secondary);
+}
+
+.instruction-section li {
+    margin-bottom: 10px;
+    line-height: 1.8;
+}
+
+.instruction-section strong {
+    color: var(--text-primary);
+}
+
+.instruction-section p {
+    margin-bottom: 10px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+}
+
+/* Rubric Table */
+.rubric-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.rubric-table th {
+    background-color: var(--bg-tertiary);
+    color: var(--accent);
+    padding: 12px;
+    text-align: left;
+    border: 1px solid var(--border);
+    font-weight: 600;
+}
+
+.rubric-table td {
+    padding: 12px;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+}
+
+.rubric-table tbody tr:nth-child(odd) {
+    background-color: var(--bg-tertiary);
+}
+
+.rubric-table strong {
+    color: var(--text-primary);
+}
+
+/* Utility Classes */
+.message {
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    border-left: 4px solid;
+}
+
+.message.success {
+    background-color: rgba(68, 255, 68, 0.1);
+    border-left-color: var(--success);
+    color: var(--success);
+}
+
+.message.error {
+    background-color: rgba(255, 68, 68, 0.1);
+    border-left-color: var(--danger);
+    color: var(--danger);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    .app-title {
+        font-size: 1.8em;
+    }
+
+    .tab-content h2 {
+        font-size: 1.5em;
+    }
+
+    .tabs {
+        gap: 5px;
+    }
+
+    .tab-button {
+        padding: 10px 16px;
+        font-size: 0.9em;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .weekly-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .weekly-controls select {
+        min-width: auto;
+    }
+
+    .daily-table {
+        font-size: 0.85em;
+    }
+
+    .daily-table th,
+    .daily-table td {
+        padding: 8px;
+    }
+
+    .chart-container {
+        padding: 15px;
+        min-height: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .app-title {
+        font-size: 1.4em;
+    }
+
+    .tab-content h2 {
+        font-size: 1.2em;
+    }
+
+    .entry-form,
+    .instruction-section,
+    .weekly-stats {
+        padding: 15px;
+    }
+
+    .tabs {
+        flex-direction: column;
+    }
+
+    .tab-button {
+        width: 100%;
+        text-align: left;
+    }
+}
