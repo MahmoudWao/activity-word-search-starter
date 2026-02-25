@@ -56,9 +56,18 @@ def load_data() -> dict:
 
 
 def save_data(data: dict) -> None:
-    """Save tracker data to JSON file."""
+    """Save tracker data to JSON file and regenerate all charts."""
     with open(DATA_FILE, "w") as f:
         json.dump(data, f, indent=2)
+    regenerate_all_charts(data)
+
+
+def regenerate_all_charts(data: dict) -> None:
+    """Regenerate pentagon chart PNGs for every entry in the dataset."""
+    for entry_date, entry in data.items():
+        build_pentagon_chart(entry_date, entry["scores"])
+    if len(data) >= 2:
+        build_comparison_chart(data, sorted(data.keys()))
 
 
 # ---------------------------------------------------------------------------
