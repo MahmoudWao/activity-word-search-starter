@@ -20,9 +20,9 @@ from datetime import date, datetime
 from math import pi
 from pathlib import Path
 
-import matplotlib.pyplot as plt
 import matplotlib
 matplotlib.use("Agg")  # non-interactive backend; saves to file
+import matplotlib.pyplot as plt
 
 DATA_FILE = Path(__file__).parent / "tracker_data.json"
 
